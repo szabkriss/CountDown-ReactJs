@@ -1,81 +1,89 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-class CountDown extends React.Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            secondsShown: "",
-            minutesShown: "",
-            hoursShown: "",
-            secondsLeft : 0
-            
-        }
+function CountDown () {
+
+    let [secondsInput, setSecondsInput] = useState(0)
+    let [minutesInput, setMinutesInput] = useState(0)
+    let [hoursInput, setHoursInput] = useState(0)
+    let [secondsLeft, setSecondsLeft] = useState(0)
+    let [timerStarted, setTimerStarted] = useState(false)
+
+
+    let setSeconds= (e) => {
+        setSecondsInput(e.target.value)
     }
 
-    setSeconds= (e) => {
-        let num = e.target.value
-            this.setState({secondsShown: num })
+    let setMinutes= (e) => {
+        setMinutesInput(e.target.value)
     }
 
-    setMinutes= (e) => {
-        let num = e.target.value
-            this.setState({minutesShown: num })
+    let setHours= (e) => {
+        setHoursInput(e.target.value)
     }
 
-    setHours= (e) => {
-        let num = e.target.value
-            this.setState({hoursShown: num })
+    let decreaseSecs = () => {
+        setTimerStarted(true)
+        setSecondsLeft(secondsInput*1 + minutesInput*60 + hoursInput*60*60)
     }
 
-    setTimer= () =>{
-        this.setState({
-            secondsShown: ((this.state.secondsLeft)%60),
-            minutesShown: Math.floor(this.state.secondsLeft/60) - Math.floor(this.state.secondsLeft/(60*60))*60,
-            hoursShown: Math.floor(this.state.secondsLeft/(60*60))
-        })
-    }
+    function showRemainingTime () {
+        let secondsShown = secondsLeft%60
+        let minutesShown = Math.floor(secondsLeft/60) - Math.floor(secondsLeft/(60*60))*60
+        let hoursShown = Math.floor(secondsLeft/(60*60))
 
-    decreaseSecs = () => {
-        this.setState({secondsLeft: this.state.secondsShown*1 + this.state.minutesShown*60 + this.state.hoursShown*60*60}, () => {
-            if(this.state.secondsLeft !== 0){
-                this.siSec=setInterval(
-                    () => {
-                        this.setState({secondsLeft: this.state.secondsLeft-1})
-                        this.setTimer()
-                    }, 1000
-                )}
-        })
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if(this.state.secondsLeft<1){
-            clearInterval(this.siSec)
-        }
-
-    }
-
-    render(){
         return (
-            <>  
-                <label>Hours:</label>
-                <input type="text" onChange={this.setHours} 
-                value={this.state.hoursShown}/>
-
-
-                <label>Minutes:</label>
-                <input type="text" onChange={this.setMinutes} 
-                value={this.state.minutesShown}/>
-
-                <label>Seconds:</label>
-                <input type="text" onChange={this.setSeconds} 
-                value={this.state.secondsShown}/>
-                
-                <button onClick={() => {this.decreaseSecs()}}>Count down!</button>
-
-                <h1>{this.state.hoursShown}:{this.state.minutesShown}:{this.state.secondsShown}</h1>
+            <>
+            <h1>{hoursShown}:{minutesShown}:{secondsShown}</h1>
             </>
         )
     }
+
+    useEffect(() => {
+        let timer
+        if(timerStarted){
+            timer = setTimeout(() => {
+            if (secondsLeft < 1){
+                setTimerStarted(false)
+            } 
+            setSecondsLeft( secondsLeft - 1 )
+            showRemainingTime()
+        }, 1000)
+        }
+        return () => {
+            clearTimeout(timer)}
+    }, 
+    [timerStarted, secondsLeft]
+    )
+
+    return (
+        <>  
+            <label>Hours:</label>
+            <input type="text" 
+            onChange={setHours}
+            disabled={timerStarted} 
+            />
+
+            <label>Minutes:</label>
+            <input type="text" 
+            onChange={setMinutes}
+            disabled={timerStarted}  
+            />
+
+            <label>Seconds:</label>
+            <input type="text" 
+            onChange={setSeconds} 
+            disabled={timerStarted} 
+            />
+            
+            <button 
+            onClick={() => {decreaseSecs()}} 
+            disabled={timerStarted}>
+                Count down!
+            </button>
+
+            {showRemainingTime()}
+        </>
+    )
 }
 
 export default CountDown
