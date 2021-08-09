@@ -2,50 +2,58 @@ import React, { useState, useEffect } from "react";
 
 function CountDown () {
 
-    let [secondsShown, setSecondsShown] = useState(0)
-    let [minutesShown, setMinutesShown] = useState(0)
-    let [hoursShown, setHoursShown] = useState(0)
+    let [secondsInput, setSecondsInput] = useState(0)
+    let [minutesInput, setMinutesInput] = useState(0)
+    let [hoursInput, setHoursInput] = useState(0)
     let [secondsLeft, setSecondsLeft] = useState(0)
     let [timerStarted, setTimerStarted] = useState(false)
 
 
     let setSeconds= (e) => {
-        setSecondsShown(e.target.value)
+        setSecondsInput(e.target.value)
     }
 
     let setMinutes= (e) => {
-        setMinutesShown(e.target.value)
+        setMinutesInput(e.target.value)
     }
 
     let setHours= (e) => {
-        setHoursShown(e.target.value)
-    }
-
-    let setTimer= () =>{
-            setSecondsShown(secondsLeft%60)
-            setMinutesShown(Math.floor(secondsLeft/60) - Math.floor(secondsLeft/(60*60))*60)
-            setHoursShown(Math.floor(secondsLeft/(60*60)))
+        setHoursInput(e.target.value)
     }
 
     let decreaseSecs = () => {
         setTimerStarted(true)
-        setSecondsLeft(secondsShown*1 + minutesShown*60 + hoursShown*60*60)
+        setSecondsLeft(secondsInput*1 + minutesInput*60 + hoursInput*60*60)
+    }
+
+    function showRemainingTime () {
+        let secondsShown = secondsLeft%60
+        let minutesShown = Math.floor(secondsLeft/60) - Math.floor(secondsLeft/(60*60))*60
+        let hoursShown = Math.floor(secondsLeft/(60*60))
+
+        return (
+            <>
+            <h1>{hoursShown}:{minutesShown}:{secondsShown}</h1>
+            </>
+        )
     }
 
     useEffect(() => {
         let timer
         if(timerStarted){
             timer = setTimeout(() => {
-            if(secondsLeft < 1){
+            if (secondsLeft < 1){
                 setTimerStarted(false)
             } 
             setSecondsLeft( secondsLeft - 1 )
-            setTimer()
+            showRemainingTime()
         }, 1000)
         }
         return () => {
             clearTimeout(timer)}
-    }, [timerStarted, secondsLeft])
+    }, 
+    [timerStarted, secondsLeft]
+    )
 
     return (
         <>  
@@ -73,7 +81,7 @@ function CountDown () {
                 Count down!
             </button>
 
-            <h1>{hoursShown}:{minutesShown}:{secondsShown}</h1>
+            {showRemainingTime()}
         </>
     )
 }
