@@ -42,11 +42,10 @@ function CountDown () {
         let timer
         if(timerStarted){
             timer = setTimeout(() => {
-            if (secondsLeft < 1){
+            if (secondsLeft < 2){
                 setTimerStarted(false)
             } 
             setSecondsLeft( secondsLeft - 1 )
-            showRemainingTime()
         }, 1000)
         }
         return () => {
