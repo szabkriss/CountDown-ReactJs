@@ -1,19 +1,42 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import CountDown from "./CountDown";
+
+export let secondsContext = React.createContext()
+export let timerContext = React.createContext()
 
 export default function InputPage() {
 
     let today = new Date();
+
+    let minmin = String(today.getMinutes()).padStart(2, '0');
+    let hh = String(today.getHours()).padStart(2, '0');
     let dd = String(today.getDate()).padStart(2, '0');
-    let nextDd = String(today.getDate() +1).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0');
     let yyyy = today.getFullYear();
-    let currentTime = String(today.getHours()).padStart(2, '0') + ':' + String(today.getMinutes()).padStart(2, '0')
+    
+    let nextDd = String(today.getDate() +1).padStart(2, '0');
+    let currentTime = hh + ':' + minmin
     today = `${yyyy}-${mm}-${dd}`;
-    let nextDay = `${yyyy}-${mm}-${nextDd}`
-    let midnight = '00:00'
+    let nextDay = `${yyyy}-${mm}-${nextDd}`;
+    let midnight = '00:00';
+    let currentDateTime = today + ' ' + currentTime;
+    let currentDateTimeInSeconds = minmin * 60 + hh * 60*60 + dd *60*60*24 + mm *60*60*24*30 + yyyy *60*60*24*30*12;
 
-    let [dateInput, setDateInput] = useState(nextDay)
-    let [timeInput, setTimeInput] = useState(midnight)
+    let [timerStarted, setTimerStarted] = useState(false)
+    let [dateInput, setDateInput] = useState(nextDay);
+    let [timeInput, setTimeInput] = useState(midnight);
+    let [dateTimeChosen, setDateTimeChosen] = useState(nextDay + ' ' + midnight);
+
+    let minminChosen = dateTimeChosen.split(':')[1];
+    let hhChosen = dateTimeChosen.split(':')[0].slice(-2);
+    let ddChosen = dateTimeChosen.split('-')[2].slice(0, 2);
+    let mmChosen = dateTimeChosen.split('-')[1];
+    let yyyyChosen = dateTimeChosen.split('-')[0];
+    
+    let dateTimeChosenInSeconds = minminChosen * 60 + hhChosen * 60*60 + ddChosen *60*60*24 + mmChosen *60*60*24*30 + yyyyChosen *60*60*24*30*12;
+    let secondsToCountDown = dateTimeChosenInSeconds - currentDateTimeInSeconds
+
+
     
     let setDate= (e) => {
         try{
@@ -21,6 +44,7 @@ export default function InputPage() {
                 throw new Error('The date should be in the future!')
             } else {
                 setDateInput(e.target.value)
+                setDateTimeChosen(e.target.value + ' ' + timeInput)
             }
         }
         catch(error){
@@ -35,6 +59,7 @@ export default function InputPage() {
                 throw new Error('The date should be in the future!')
             } else {
                 setTimeInput(e.target.value)
+                setDateTimeChosen(dateInput + ' ' + e.target.value)
             }
         }
         catch(error){
@@ -43,9 +68,24 @@ export default function InputPage() {
         }
     }
 
+    let startCountDown = () => {
+        console.log('start countdown')
+        setTimerStarted(true)
+    }
+
+    <CountDown setTimerStarted={setTimerStarted}/>
+
     
     return (
         <>
+            <secondsContext.Provider value={secondsToCountDown}>
+                <timerContext.Provider value={timerStarted}>
+
+                    <CountDown/>
+
+                </timerContext.Provider>
+            </secondsContext.Provider>
+
             <input 
             type="date" 
             min={today} 
@@ -61,6 +101,9 @@ export default function InputPage() {
             />
 
             <button
+            onClick={
+                startCountDown
+            }
             >
             Start!    
             </button>
