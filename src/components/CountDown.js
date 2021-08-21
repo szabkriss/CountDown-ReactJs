@@ -63,25 +63,25 @@ function CountDown () {
 
     return (
         <>  
-<           label>Days:</label>
+<           label>Days: </label>
             <input type="text" 
             onChange={setDays}
             disabled={timerStarted} 
             />
 
-            <label>Hours:</label>
+            <label> Hours: </label>
             <input type="text" 
             onChange={setHours}
             disabled={timerStarted} 
             />
 
-            <label>Minutes:</label>
+            <label> Minutes: </label>
             <input type="text" 
             onChange={setMinutes}
             disabled={timerStarted}  
             />
 
-            <label>Seconds:</label>
+            <label> Seconds: </label>
             <input type="text" 
             onChange={setSeconds} 
             disabled={timerStarted} 
