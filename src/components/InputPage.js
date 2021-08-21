@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import CountDown from "./CountDown";
 
-export let secondsContext = React.createContext()
-export let timerContext = React.createContext()
+export let SecondsContext = React.createContext()
+export let TimerContext = React.createContext()
 
 export default function InputPage() {
 
@@ -73,18 +73,15 @@ export default function InputPage() {
         setTimerStarted(true)
     }
 
-    <CountDown setTimerStarted={setTimerStarted}/>
-
-    
     return (
         <>
-            <secondsContext.Provider value={secondsToCountDown}>
-                <timerContext.Provider value={timerStarted}>
+            <SecondsContext.Provider value={secondsToCountDown}>
+                <TimerContext.Provider value={timerStarted}>
 
                     <CountDown/>
 
-                </timerContext.Provider>
-            </secondsContext.Provider>
+                </TimerContext.Provider>
+            </SecondsContext.Provider>
 
             <input 
             type="date" 

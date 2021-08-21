@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { timerContext, secondsContext } from "./InputPage"
+import React, { useState, useEffect, useContext } from "react";
+import { TimerContext, SecondsContext } from "./InputPage"
 
-function CountDown ({secondsToCountDown, timerStarted, setTimerStarted}) {
+function CountDown () {
+
+    let secondsToCountDown = useContext(SecondsContext)
+    let timerStarted = useContext(TimerContext)
 
     let [secondsLeft, setSecondsLeft] = useState(0)
 
@@ -21,19 +24,17 @@ function CountDown ({secondsToCountDown, timerStarted, setTimerStarted}) {
 
     useEffect(() => {
         setSecondsLeft(secondsToCountDown)
-
     }, [secondsToCountDown])
 
     useEffect(() => {
         let timer
         console.log(timerStarted)
         console.log(secondsToCountDown)
-        console.log(setTimerStarted)
         if(timerStarted){
             timer = setTimeout(() => {
-            if (secondsLeft < 2){
-                setTimerStarted(false)
-            } 
+            // if (secondsLeft < 2){
+            //     setTimerStarted(false)
+            // } 
             setSecondsLeft( secondsLeft - 1 )
         }, 1000)
         }
