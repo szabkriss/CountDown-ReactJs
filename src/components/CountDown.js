@@ -9,7 +9,6 @@ function CountDown (props) {
     let occation = props.occation
 
     function showRemainingTime () {
-        console.log('show remaining time')
         let secondsShown = secondsLeft%60
         let minutesShown = Math.floor(secondsLeft/60) - Math.floor(secondsLeft/(60*60))*60
         let hoursShown = Math.floor(secondsLeft/(60*60)) - Math.floor(secondsLeft/(60*60*24))*24
@@ -24,8 +23,6 @@ function CountDown (props) {
 
     useEffect(() => {
         let timer
-        console.log(timerStarted)
-        console.log(secondsLeft)
         if(timerStarted){
             timer = setTimeout(() => {
             if (secondsLeft < 2){
