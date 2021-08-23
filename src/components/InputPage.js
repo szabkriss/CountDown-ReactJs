@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import CountDown from "./CountDown";
 
-export let SecondsContext = React.createContext()
-export let TimerContext = React.createContext()
+export default function InputPage(props) {
 
-export default function InputPage() {
+    let setSecondsLeft = props.setSecondsLeft
+    let setTimerStarted = props.setTimerStarted
 
     let today = new Date();
 
@@ -19,10 +19,8 @@ export default function InputPage() {
     today = `${yyyy}-${mm}-${dd}`;
     let nextDay = `${yyyy}-${mm}-${nextDd}`;
     let midnight = '00:00';
-    let currentDateTime = today + ' ' + currentTime;
     let currentDateTimeInSeconds = minmin * 60 + hh * 60*60 + dd *60*60*24 + mm *60*60*24*30 + yyyy *60*60*24*30*12;
 
-    let [timerStarted, setTimerStarted] = useState(false)
     let [dateInput, setDateInput] = useState(nextDay);
     let [timeInput, setTimeInput] = useState(midnight);
     let [dateTimeChosen, setDateTimeChosen] = useState(nextDay + ' ' + midnight);
@@ -36,8 +34,6 @@ export default function InputPage() {
     let dateTimeChosenInSeconds = minminChosen * 60 + hhChosen * 60*60 + ddChosen *60*60*24 + mmChosen *60*60*24*30 + yyyyChosen *60*60*24*30*12;
     let secondsToCountDown = dateTimeChosenInSeconds - currentDateTimeInSeconds
 
-
-    
     let setDate= (e) => {
         try{
             if (e.target.value === today && timeInput < currentTime){
@@ -68,20 +64,9 @@ export default function InputPage() {
         }
     }
 
-    let startCountDown = () => {
-        console.log('start countdown')
-        setTimerStarted(true)
-    }
-
     return (
         <>
-            <SecondsContext.Provider value={secondsToCountDown}>
-                <TimerContext.Provider value={timerStarted}>
 
-                    <CountDown/>
-
-                </TimerContext.Provider>
-            </SecondsContext.Provider>
 
             <input 
             type="date" 
@@ -99,7 +84,10 @@ export default function InputPage() {
 
             <button
             onClick={
-                startCountDown
+                () => {
+                setSecondsLeft(secondsToCountDown)
+                setTimerStarted(true)
+                }
             }
             >
             Start!    

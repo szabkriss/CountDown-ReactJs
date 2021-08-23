@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
-import { TimerContext, SecondsContext } from "./InputPage"
+import React, { useState, useEffect } from "react";
+import { TimerContext, SecondsContext } from "../App"
 
-function CountDown () {
+function CountDown (props) {
 
-    let secondsToCountDown = useContext(SecondsContext)
-    let timerStarted = useContext(TimerContext)
-
-    let [secondsLeft, setSecondsLeft] = useState(0)
+    let secondsLeft = props.secondsLeft
+    let setSecondsLeft = props.setSecondsLeft
+    let timerStarted = props.timerStarted
+    let setTimerStarted = props.setTimerStarted
 
     function showRemainingTime () {
         console.log('show remaining time')
@@ -23,18 +23,14 @@ function CountDown () {
     }
 
     useEffect(() => {
-        setSecondsLeft(secondsToCountDown)
-    }, [secondsToCountDown])
-
-    useEffect(() => {
         let timer
         console.log(timerStarted)
-        console.log(secondsToCountDown)
+        console.log(secondsLeft)
         if(timerStarted){
             timer = setTimeout(() => {
-            // if (secondsLeft < 2){
-            //     setTimerStarted(false)
-            // } 
+            if (secondsLeft < 2){
+                setTimerStarted(false)
+            } 
             setSecondsLeft( secondsLeft - 1 )
         }, 1000)
         }
@@ -46,7 +42,7 @@ function CountDown () {
 
     return (
         <>  
-            {showRemainingTime}
+            {showRemainingTime()}
         </>
     )
 }
