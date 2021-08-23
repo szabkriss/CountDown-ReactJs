@@ -17,7 +17,7 @@ function CountDown (props) {
 
         return (
             <>
-            <h3>{daysShown} days {hoursShown} hours {minutesShown} minutes {secondsShown} seconds left until {occation}</h3>
+            <h3>{daysShown} days {hoursShown} hours {minutesShown} minutes {secondsShown} seconds left {occation ? `until ${occation}` : ""}</h3>
             </>
         )
     }
