@@ -1,6 +1,14 @@
 .App {
-  text-align: center;
-  margin-top: 10vw;
+display: flex;
+flex-direction: row;
+flex-wrap: nowrap;
+justify-content: center;
+align-content: stretch;
+align-items: center;
+}
+
+.Countdown{
+  margin-left: 10px;
 }
 
 .App-logo {

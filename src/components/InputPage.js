@@ -5,6 +5,7 @@ export default function InputPage(props) {
 
     let setSecondsLeft = props.setSecondsLeft
     let setTimerStarted = props.setTimerStarted
+    let setOccation = props.setOccation
 
     let today = new Date();
 
@@ -33,6 +34,8 @@ export default function InputPage(props) {
     
     let dateTimeChosenInSeconds = minminChosen * 60 + hhChosen * 60*60 + ddChosen *60*60*24 + mmChosen *60*60*24*30 + yyyyChosen *60*60*24*30*12;
     let secondsToCountDown = dateTimeChosenInSeconds - currentDateTimeInSeconds
+
+    let[occationInput, setOccationInput] = useState("")
 
     let setDate= (e) => {
         try{
@@ -82,11 +85,17 @@ export default function InputPage(props) {
             value={timeInput}
             />
 
+            <input 
+            type="text"
+            onChange={(e) => setOccationInput(e.target.value)}
+            />
+
             <button
             onClick={
-                () => {
+                async () => {
                 setSecondsLeft(secondsToCountDown)
-                setTimerStarted(true)
+                setOccation(occationInput)
+                await setTimerStarted(true)
                 }
             }
             >

@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 import CountDown from './components/CountDown'
@@ -7,28 +6,29 @@ import InputPage from './components/InputPage';
 function App() {
   let [timerStarted, setTimerStarted] = useState(false)
   let [secondsLeft, setSecondsLeft] = useState(0)
-
-  let startCountDown = () => {
-    console.log('start countdown')
-    setTimerStarted(true)
-}
-
+  let [occation, setOccation] = useState("")
 
   return (
     <div className="App">
 
-                    <CountDown
-                      display="none"
-                      secondsLeft={secondsLeft} 
-                      setSecondsLeft={setSecondsLeft}
-                      timerStarted={timerStarted}
-                      setTimerStarted={setTimerStarted}
-                    />
+          <div className="InputPage" style = {{ display: timerStarted ? "none" : "block" }}>
+              <InputPage
+                
+                setTimerStarted={setTimerStarted}
+                setSecondsLeft={setSecondsLeft}
+                setOccation={setOccation}
+              />
+          </div>
 
-                    <InputPage
-                      setTimerStarted={setTimerStarted}
-                      setSecondsLeft={setSecondsLeft}
-                    />
+          <div className="Countdown" style = {{ display: timerStarted ? "block" : "none" }}>
+              <CountDown
+                secondsLeft={secondsLeft} 
+                setSecondsLeft={setSecondsLeft}
+                timerStarted={timerStarted}
+                setTimerStarted={setTimerStarted}
+                occation={occation}
+              />
+          </div>
 
     </div>
   );

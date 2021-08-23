@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { TimerContext, SecondsContext } from "../App"
 
 function CountDown (props) {
 
@@ -7,6 +6,7 @@ function CountDown (props) {
     let setSecondsLeft = props.setSecondsLeft
     let timerStarted = props.timerStarted
     let setTimerStarted = props.setTimerStarted
+    let occation = props.occation
 
     function showRemainingTime () {
         console.log('show remaining time')
@@ -17,7 +17,7 @@ function CountDown (props) {
 
         return (
             <>
-            <h1>{daysShown} days {hoursShown} hours {minutesShown} minutes {secondsShown} seconds left</h1>
+            <h3>{daysShown} days {hoursShown} hours {minutesShown} minutes {secondsShown} seconds left until {occation}</h3>
             </>
         )
     }
