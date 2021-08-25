@@ -1,6 +1,6 @@
 import './App.css';
 import { useState } from 'react';
-import CountDown from './components/CountDown'
+import CountDown from './components/CountdownPage'
 import InputPage from './components/InputPage';
 
 function App() {

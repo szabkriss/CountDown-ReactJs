@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import CountDown from "./CountDown";
+import CountdownPage from "./CountdownPage";
 
 export default function InputPage(props) {
 

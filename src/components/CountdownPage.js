@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function CountDown (props) {
+function CountdownPage (props) {
 
     let secondsLeft = props.secondsLeft
     let setSecondsLeft = props.setSecondsLeft
@@ -56,4 +56,4 @@ function CountDown (props) {
     )
 }
 
-export default CountDown
+export default CountdownPage
