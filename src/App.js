@@ -1,7 +1,7 @@
 import './App.css';
 import { useState } from 'react';
-import CountDown from './components/CountdownPage'
-import InputPage from './components/InputPage';
+import CountDown from './components-pages/CountdownPage'
+import InputPage from './components-pages/InputPage';
 
 function App() {
   let [timerStarted, setTimerStarted] = useState(false)
