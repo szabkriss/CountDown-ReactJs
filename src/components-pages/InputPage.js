@@ -87,9 +87,7 @@ export default function InputPage(props) {
                 setOccation(occationInput)
                 setTimerStarted(true)
             }
-
         }
-        
     }
 
     return (
