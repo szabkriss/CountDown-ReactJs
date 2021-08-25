@@ -73,7 +73,7 @@ export default function InputPage(props) {
     let onClickHandler = () => {
         try{
             if (occationInput === ""){
-                throw new Error('There is no event to countdown to. Would you like to continue?')
+                throw new Error('There is no event to count down to. Would you like to continue?')
             } else {
                 setSecondsLeft(secondsToCountDown)
                 setOccation(occationInput)
