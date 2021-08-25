@@ -11,16 +11,21 @@ function App() {
   return (
     <div className="App">
 
-          <div className="InputPage" style = {{ display: timerStarted ? "none" : "block" }}>
+          <div 
+          className="InputPage" 
+          style = {{ display: timerStarted ? "none" : "block" }}
+          >
               <InputPage
-                
                 setTimerStarted={setTimerStarted}
                 setSecondsLeft={setSecondsLeft}
                 setOccation={setOccation}
               />
           </div>
 
-          <div className="Countdown" style = {{ display: timerStarted ? "block" : "none" }}>
+          <div 
+          className="Countdown" 
+          style = {{ display: timerStarted ? "flex" : "none" }}
+          >
               <CountDown
                 secondsLeft={secondsLeft} 
                 setSecondsLeft={setSecondsLeft}

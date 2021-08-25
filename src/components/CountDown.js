@@ -47,6 +47,11 @@ function CountDown (props) {
     return (
         <>  
             {showRemainingTime()}
+            <button
+            onClick={() => setTimerStarted(false)}
+            >
+            Stop
+            </button>
         </>
     )
 }
