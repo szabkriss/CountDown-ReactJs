@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import CountdownPage from "./CountdownPage";
+import React, { useState } from "react";
 
 export default function InputPage(props) {
 
@@ -67,6 +66,32 @@ export default function InputPage(props) {
         }
     }
 
+    let setEvent= (e) => {
+        setOccationInput(e.target.value)
+    }
+
+    let onClickHandler = () => {
+        try{
+            if (occationInput === ""){
+                throw new Error('There is no event to countdown to. Would you like to continue?')
+            } else {
+                setSecondsLeft(secondsToCountDown)
+                setOccation(occationInput)
+                setTimerStarted(true)
+            }
+        }
+        catch(error){
+            let confirmation = window.confirm(error.message)
+            if (confirmation) {
+                setSecondsLeft(secondsToCountDown)
+                setOccation(occationInput)
+                setTimerStarted(true)
+            }
+
+        }
+        
+    }
+
     return (
         <>
 
@@ -87,17 +112,11 @@ export default function InputPage(props) {
 
             <input 
             type="text"
-            onChange={(e) => setOccationInput(e.target.value)}
+            onChange={setEvent}
             />
 
             <button
-            onClick={
-                async () => {
-                setSecondsLeft(secondsToCountDown)
-                setOccation(occationInput)
-                await setTimerStarted(true)
-                }
-            }
+            onClick={onClickHandler}
             >
             Start!    
             </button>
