@@ -13,7 +13,7 @@ function App() {
 
           <div 
           className="InputPage" 
-          style = {{ display: timerStarted ? "none" : "block" }}
+          style = {{ display: timerStarted ? "none" : "flex" }}
           >
               <InputPage
                 setTimerStarted={setTimerStarted}

@@ -47,7 +47,8 @@ export default function InputPage(props) {
         }
         catch(error){
             alert(error.message)
-            setTimeInput(currentTime)
+            setTimeInput(midnight)
+            setDateInput(nextDay)
         }
     }
     
@@ -62,7 +63,8 @@ export default function InputPage(props) {
         }
         catch(error){
             alert(error.message)
-            setTimeInput(currentTime)
+            setTimeInput(midnight)
+            setDateInput(nextDay)
         }
     }
 
