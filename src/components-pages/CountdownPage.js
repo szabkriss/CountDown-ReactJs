@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
-function CountDown (props) {
+function CountdownPage (props) {
 
     let secondsLeft = props.secondsLeft
     let setSecondsLeft = props.setSecondsLeft
@@ -16,7 +16,14 @@ function CountDown (props) {
 
         return (
             <>
-            <h3>{daysShown} days {hoursShown} hours {minutesShown} minutes {secondsShown} seconds left {occation ? `until ${occation}` : ""}</h3>
+            <h3>
+            {daysShown === 0 ? "" : `${daysShown} days `} 
+            {hoursShown === 0 ? "" : `${hoursShown} hours `}
+            {minutesShown === 0 ? "" : `${minutesShown} minutes `}
+            {secondsShown === 0 ? "" : `${secondsShown} seconds `}
+            left 
+            {occation ? ` until ${occation}` : ""}
+            </h3>
             </>
         )
     }
@@ -40,8 +47,13 @@ function CountDown (props) {
     return (
         <>  
             {showRemainingTime()}
+            <button
+            onClick={() => setTimerStarted(false)}
+            >
+            Stop
+            </button>
         </>
     )
 }
 
-export default CountDown
+export default CountdownPage
