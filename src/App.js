@@ -1,40 +1,16 @@
 import './App.css';
 import { useState } from 'react';
-import CountDown from './components-pages/CountdownPage'
-import InputPage from './components-pages/InputPage';
+import CountDown from './pages/CountdownPage'
+import InputPage from './pages/InputPage';
+import CountdownComponent from './components/CountdownComonent';
 
 function App() {
-  let [timerStarted, setTimerStarted] = useState(false)
-  let [secondsLeft, setSecondsLeft] = useState(0)
-  let [occation, setOccation] = useState("")
 
   return (
     <div className="App">
-
-          <div 
-          className="InputPage" 
-          style = {{ display: timerStarted ? "none" : "flex" }}
-          >
-              <InputPage
-                setTimerStarted={setTimerStarted}
-                setSecondsLeft={setSecondsLeft}
-                setOccation={setOccation}
-              />
-          </div>
-
-          <div 
-          className="Countdown" 
-          style = {{ display: timerStarted ? "flex" : "none" }}
-          >
-              <CountDown
-                secondsLeft={secondsLeft} 
-                setSecondsLeft={setSecondsLeft}
-                timerStarted={timerStarted}
-                setTimerStarted={setTimerStarted}
-                occation={occation}
-              />
-          </div>
-
+      <CountdownComponent/>
+      <CountdownComponent/>
+      <button className="Plus-button">+</button>
     </div>
   );
 }
