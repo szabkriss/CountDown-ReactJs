@@ -48,6 +48,7 @@ function CountdownPage (props) {
         <>  
             {showRemainingTime()}
             <button
+            className="stopButton"
             onClick={() => setTimerStarted(false)}
             >
             Stop
